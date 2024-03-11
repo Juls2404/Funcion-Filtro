@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
 const Datos =()=>{
-    
+    //Estas son las variables en las que se va a guardar los datos que ingresemos:
+    const [filtro,setFiltro] = useState("")
 
-    //Aquí creamos la lista de los usuarios que vamos a mostrar en la tabla
+    
+    //Aquí creamos la lista de los usuarios que vamos a mostrar en la tabla:
     const usuarios =[
         {
             id : 1,
@@ -32,19 +34,29 @@ const Datos =()=>{
         }
 
     ];
-    
 
+
+    //Aquí creamos la funcion filtar y le decimos que pase todo a minuscula para poder hacer la comparacion con los datos de la tabla.
+    const filtrar = usuarios.filter((usuario) =>
+    usuario.nombre.toLowerCase().includes(filtro.toLowerCase())
+    );   
+ 
     return(
         <div>
-           
+
+            {/* Aquí creamos un input para poder utilizar el filtro */}
+           <div className="input-group input-group-sm mb-3">
+                <input value ={filtro} onChange={(event)=> setFiltro(event.target.value)} ></input>
+            </div>
             <div>
-                <table>
+                <table> 
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Descripcion</th>
                     </tr>
-                        {usuarios.map((usuario)=>(
+                    {/* Aquí cambiamos de usuarios a filtrar para que lo que ingresemos en el buscador modifique lo que vemos en la tabla */}
+                        {filtrar.map((usuario)=>(
                         <tr key ={usuario.id}>
                             <td>{usuario.id}</td>
                             <td>{usuario.nombre}</td>
